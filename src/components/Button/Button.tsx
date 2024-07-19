@@ -1,8 +1,7 @@
 import React, { forwardRef, type PropsWithChildren } from "react";
 import { VariantProps } from "class-variance-authority";
-import { ButtonVariants } from "./BaseButton";
-import { cm } from "@/util/classMerger";
-
+import { ButtonVariants } from "./ButtonVariants";
+import { cm } from "../../util/classMerger";
 
 type ButtonBaseProps = PropsWithChildren<{
     label?: string;
@@ -36,4 +35,5 @@ const Button = forwardRef<HTMLAnchorElement & HTMLButtonElement, ButtonProps & B
     }
 );
 
-export { Button, ButtonVariants }
+export {Button, ButtonVariants}
+
