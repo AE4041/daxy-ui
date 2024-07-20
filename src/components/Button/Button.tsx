@@ -1,8 +1,8 @@
 import React, { type PropsWithChildren } from "react";
-import classNames from "classnames";
 import { VariantProps } from "class-variance-authority";
 import { ButtonVariants } from "./ButtonVariants";
 import { cm } from "../../util/classMerger";
+import classNames from "classnames";
 
 
 type ButtonProps = PropsWithChildren<{
@@ -13,9 +13,9 @@ type ButtonProps = PropsWithChildren<{
     disabled?: boolean;
     className?: string;
     onClick?: () => void;
-    iconPosition?: "right" | "left" | null;
-    shape?: VariantProps<typeof ButtonVariants>["shape"];
-    size?: VariantProps<typeof ButtonVariants>["size"];
+    iconPosition?: "right" | "left";
+    size?: "default" | "sm" | "lg" | "icon";
+    shape?: "default" | "smooth" | "rounded" | "curved" | "full"
     severity?: VariantProps<typeof ButtonVariants>["severity"];
 }>;
 
