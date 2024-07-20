@@ -1,39 +1,36 @@
-import React, { forwardRef, type PropsWithChildren } from "react";
+import React, { type PropsWithChildren } from "react";
 import { VariantProps } from "class-variance-authority";
 import { ButtonVariants } from "./ButtonVariants";
 import { cm } from "../../util/classMerger";
 
-type ButtonBaseProps = PropsWithChildren<{
+type ButtonProps = PropsWithChildren<{
     label?: string;
     loading?: boolean;
     iconOnly?: boolean;
     disabled?: boolean;
     className?: string;
+    shape?: VariantProps<typeof ButtonVariants>["shape"];
+    size?: VariantProps<typeof ButtonVariants>["size"];
+    severity?: VariantProps<typeof ButtonVariants>["severity"];
 }>;
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, ButtonBaseProps {
-    asChild?: boolean;
-}
-
-interface ButtonPropsDuo extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof ButtonVariants> {
-    asChild?: boolean;
-}
 
 // BaseButton component with ref forwarding
-const Button = forwardRef<HTMLAnchorElement & HTMLButtonElement, ButtonProps & ButtonPropsDuo>(
-    ({ className, severity, size, shape, children, disabled, ...props }, ref) => {
-        return (
-            <button
-                className={cm(ButtonVariants({ className, shape, severity, size }))}
-                ref={ref}
-                {...props}
-                disabled={disabled}
-            >
-                {children || props.label}
-            </button>
-        );
-    }
-);
+const Button = React.forwardRef<HTMLAnchorElement & HTMLButtonElement, ButtonProps>((props, ref) => {
+    const { disabled, loading, className, label, shape = "default", size = "default", severity = "default",
+        children, ...rest
+    } = props;
 
-export {Button, ButtonVariants}
+    return (
+        <button ref={ref}
+            className={cm(ButtonVariants({ shape, severity, size }), className,)}
+            disabled={disabled}
+            {...rest}
+        >
+            {loading ? <span className="loader">Loading...</span> : label || children}
+        </button>
+    );
+})
+
+export { Button, ButtonVariants }
 
