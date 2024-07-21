@@ -1,9 +1,11 @@
 import { defineConfig } from 'vite'
-import { resolve } from 'path'
+import { resolve, relative, extname } from 'path'
 import react from '@vitejs/plugin-react'
 import dts from 'vite-plugin-dts';
 import tailwindcss from "tailwindcss";
-import { peerDependencies, dependencies } from './package.json'
+import { glob } from "glob"
+import { fileURLToPath } from 'node:url'
+
 
 export default defineConfig({
   plugins: [
@@ -18,16 +20,26 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: resolve(__dirname, './src/index.ts'),
-      formats: ['es'],
+      entry: resolve(__dirname, 'src/index.ts'),
+      formats: ['es', 'cjs'],
       fileName: (ext) => `index.${ext}.js`
     },
     rollupOptions: {
-      external: [...Object.keys(peerDependencies), ...Object.keys(dependencies), "tailwindcss"],
-      output: { preserveModules: true, exports: 'named' }
+      external: ['react', 'react/jsx-runtime'],
+      output: {
+        entryFileNames: '[name].js',
+      },
+      input: Object.fromEntries(
+        glob.sync('src/**/*.{ts,tsx}').map(file => [
+          relative(
+            'src',
+            file.slice(0, file.length - extname(file).length)
+          ),
+          fileURLToPath(new URL(file, import.meta.url))
+        ])
+      )
     },
     target: 'esnext',
-    sourcemap: true
   },
   css: {
     postcss: {
