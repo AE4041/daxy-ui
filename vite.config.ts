@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url'
 export default defineConfig({
   plugins: [
     react({ 'jsxRuntime': 'classic' }),
-    dts({ include: ['src/**/*'], })
+    dts({ include: ['src'], })
   ],
   resolve: {
     alias: {
@@ -20,9 +20,8 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
-      formats: ['es', 'cjs'],
-      fileName: (ext) => `index.${ext}.js`
+      entry: resolve(__dirname, './src/index.ts'),
+      formats: ['es'],
     },
     rollupOptions: {
       external: ['react', 'react/jsx-runtime'],
@@ -30,7 +29,7 @@ export default defineConfig({
         entryFileNames: '[name].js',
       },
       input: Object.fromEntries(
-        glob.sync('src/**/*.{ts,tsx}').map(file => [
+        glob.sync('./src/**/*.{ts,tsx}').map(file => [
           relative(
             'src',
             file.slice(0, file.length - extname(file).length)
