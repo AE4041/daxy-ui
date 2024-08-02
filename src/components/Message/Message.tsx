@@ -3,6 +3,7 @@ import { VariantProps } from "class-variance-authority";
 import { MessageVariants } from "./MessageVariants";
 import { cm } from "@/util/classMerger";
 import classNames from "classnames";
+import { ShapeTypes } from "@/util/global-types";
 
 
 type MessageProps = PropsWithChildren<{
@@ -12,7 +13,7 @@ type MessageProps = PropsWithChildren<{
     onClose?: () => void;
     icon?: React.ReactNode;
     content?: React.ReactNode;
-    shape?: "default" | "smooth" | "rounded" | "curved";
+    shape?: Exclude<ShapeTypes, "full">
     severity?:
     | "default"
     | "contrast"

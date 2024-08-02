@@ -3,6 +3,7 @@ import { VariantProps } from "class-variance-authority";
 import { ButtonVariants } from "./ButtonVariants";
 import { cm } from "../../util/classMerger";
 import classNames from "classnames";
+import { ShapeTypes } from "@/util/global-types";
 
 
 type ButtonProps = PropsWithChildren<{
@@ -15,7 +16,7 @@ type ButtonProps = PropsWithChildren<{
     onClick?: () => void;
     iconPosition?: "right" | "left";
     size?: "default" | "sm" | "lg" | "icon";
-    shape?: "default" | "smooth" | "rounded" | "curved" | "full"
+    shape?: ShapeTypes;
     severity?: VariantProps<typeof ButtonVariants>["severity"];
 }>;
 

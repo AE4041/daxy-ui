@@ -1,0 +1,1 @@
+export type ShapeTypes = "default" | "smooth" | "rounded" | "curved" | "full"
