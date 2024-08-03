@@ -1,6 +1,5 @@
 import React, { type PropsWithChildren } from "react";
 import { cm } from "@/util/classMerger";
-import classNames from "classnames";
 import { AvatarSize, Shapes } from "@/util/global-types";
 
 type AvatarProps = PropsWithChildren<{
@@ -27,7 +26,6 @@ type AvatarProps = PropsWithChildren<{
 
 const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>((props, ref) => {
     const {
-        size = "xxxs",
         src,
         shape = "default",
         alt,
@@ -41,3 +39,5 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>((props, ref) => {
         </div>
     )
 })
+
+export { Avatar }

@@ -1,9 +1,9 @@
 import React, { type PropsWithChildren, forwardRef } from "react";
-import { VariantProps } from "class-variance-authority";
-import { MessageVariants } from "./MessageVariants";
+import { VariantProps, cva } from "class-variance-authority";
 import { cm } from "@/util/classMerger";
 import classNames from "classnames";
 import { Shapes } from "@/util/global-types";
+import { BadgeCheck, BadgeHelp, BadgeInfo, Info, OctagonAlert, Rocket, Siren, X } from "lucide-react";
 
 
 type MessageProps = PropsWithChildren<{
@@ -44,6 +44,38 @@ type MessageProps = PropsWithChildren<{
     | "danger";
 }>;
 
+
+/**
+ * This function handles the entire message component shape and color properties
+ */
+const MessageVariants = cva(
+    "flex items-center gap-2 border py-2 pe-2 ps-4",
+    {
+        variants: {
+            shape: {
+                default: "border-0",
+                smooth: "rounded-md",
+                rounded: "rounded-lg",
+                curved: "rounded-xl",
+            },
+            severity: {
+                default: "border-gray-300 bg-white text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100",
+                contrast: "border-gray-300 bg-white text-gray-800 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100",
+                muted: "bg-gray-200 text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100",
+                primary: "border-indigo-500 bg-indigo-500/10 text-indigo-500",
+                info: "border-cyan-500 bg-cyan-500/10 text-cyan-500",
+                success: "border-teal-500 bg-teal-500/10 text-teal-500",
+                warning: "border-amber-500 bg-amber-500/10 text-amber-500",
+                danger: "border-red-500 bg-red-500/10 text-red-500",
+            }
+        },
+        defaultVariants: {
+            shape: "default",
+            severity: "default"
+        }
+    }
+)
+
 /**
  *  The function to set a message icon base its variant
  * @param variant 
@@ -51,18 +83,18 @@ type MessageProps = PropsWithChildren<{
  */
 const getVariantIcon = (variant: VariantProps<typeof MessageVariants>["severity"]) => {
     const iconMap = {
-        default: "ri-alarm-warning-line",
-        contrast: "ri-alarm-warning-line",
-        muted: "ri-alarm-warning-line",
-        info: "ri-error-warning-line",
-        primary: "ri-rocket-2-line",
-        success: "ri-verified-badge-line",
-        warning: "ri-error-warning-line",
-        danger: "ri-spam-2-line",
+        default: <Siren size={20} />,
+        contrast: <Info size={20} />,
+        muted: <Info size={20} />,
+        info: <BadgeInfo size={20} />,
+        primary: <Rocket size={20} />,
+        success: <BadgeCheck size={20} />,
+        warning: <BadgeHelp size={20} />,
+        danger: <OctagonAlert size={20} />,
     };
 
-    const iconClass = iconMap[variant || "default"] || "ri-spam-3-line";
-    return <i className={`${iconClass} text-lg`}></i>;
+    const iconClass = iconMap[variant || "default"] || <Siren />;
+    return iconClass;
 };
 
 
@@ -104,11 +136,11 @@ const Message = forwardRef<HTMLDivElement, MessageProps>((props, ref) => {
                 )}
             {closable && (
                 <button className={closeButtonClasses} onClick={onClose}>
-                    <i className="ri-close-line text-base"></i>
+                    <X size={20} />
                 </button>
             )}
         </div>
     );
 });
 
-export { Message, MessageVariants };
+export { Message };
