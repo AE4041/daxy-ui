@@ -1,4 +1,4 @@
-export type ShapeTypes = "default" | "smooth" | "rounded" | "curved" | "full"
+export type Shapes = "default" | "smooth" | "rounded" | "curved" | "full" | "hexa" | "blob" | "deca"
 
 /** Size of Button component.  */
 export type ButtonSize = "default" | "sm" | "lg" | "icon"

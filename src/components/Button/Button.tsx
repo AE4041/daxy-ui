@@ -3,7 +3,7 @@ import { VariantProps } from "class-variance-authority";
 import { ButtonVariants } from "./ButtonVariants";
 import { cm } from "../../util/classMerger";
 import classNames from "classnames";
-import { ShapeTypes, ButtonSize } from "@/util/global-types";
+import { Shapes, ButtonSize } from "@/util/global-types";
 
 
 type ButtonProps = PropsWithChildren<{
@@ -42,7 +42,7 @@ type ButtonProps = PropsWithChildren<{
     size?: ButtonSize;
 
     /** The shape of the button. */
-    shape?: ShapeTypes;
+    shape?: Exclude<Shapes, "hexa" | "blob" | "deca">;
 
     /** The variant of the button.
      * @default "default"

@@ -3,7 +3,7 @@ import { VariantProps } from "class-variance-authority";
 import { MessageVariants } from "./MessageVariants";
 import { cm } from "@/util/classMerger";
 import classNames from "classnames";
-import { ShapeTypes } from "@/util/global-types";
+import { Shapes } from "@/util/global-types";
 
 
 type MessageProps = PropsWithChildren<{
@@ -28,7 +28,7 @@ type MessageProps = PropsWithChildren<{
     content?: React.ReactNode;
 
     /** The shape of the message component. */
-    shape?: Exclude<ShapeTypes, "full">
+    shape?: Exclude<Shapes, "full" | "hexa" | "blob" | "deca">
 
     /** The variant of the button.
     * @default "default"
@@ -44,7 +44,11 @@ type MessageProps = PropsWithChildren<{
     | "danger";
 }>;
 
-// Helper function to get the icon for a given severity variant
+/**
+ *  The function to set a message icon base its variant
+ * @param variant 
+ * @returns 
+ */
 const getVariantIcon = (variant: VariantProps<typeof MessageVariants>["severity"]) => {
     const iconMap = {
         default: "ri-alarm-warning-line",
@@ -74,8 +78,6 @@ const Message = forwardRef<HTMLDivElement, MessageProps>((props, ref) => {
         severity = "default",
     } = props;
 
-    // Base message class names
-    const messageClasses = cm(MessageVariants({ shape, severity }), className);
 
     // Close button class names based on severity
     const closeButtonClasses = classNames(
@@ -92,7 +94,7 @@ const Message = forwardRef<HTMLDivElement, MessageProps>((props, ref) => {
     );
 
     return (
-        <div ref={ref} className={messageClasses}>
+        <div ref={ref} className={cm(MessageVariants({ shape, severity }), className)}>
             {content ? <>{content}</>
                 : (
                     <div className="flex items-center gap-3">
