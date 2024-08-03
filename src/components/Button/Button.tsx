@@ -3,20 +3,50 @@ import { VariantProps } from "class-variance-authority";
 import { ButtonVariants } from "./ButtonVariants";
 import { cm } from "../../util/classMerger";
 import classNames from "classnames";
-import { ShapeTypes } from "@/util/global-types";
+import { ShapeTypes, ButtonSize } from "@/util/global-types";
 
 
 type ButtonProps = PropsWithChildren<{
+    /** The text content of the button.*/
     label?: string;
+
+    /** Button icon */
     icon?: React.ReactNode;
+
+    /**
+     * Whether the button should be in loading state.
+     * @default false
+     */
     loading?: boolean;
+
+    /** Whether the button should have no label but icon only.*/
     iconOnly?: boolean;
+
+    /** Whether the button should not be able to interact with. */
     disabled?: boolean;
+
+    /** Button class  */
     className?: string;
+
+    /** The native button click event handler. */
     onClick?: () => void;
+
+    /** Whether button icon should be on the right or left position
+     * @default "left"
+     */
     iconPosition?: "right" | "left";
-    size?: "default" | "sm" | "lg" | "icon";
+
+    /** The size of the button
+     * @default "default"
+     */
+    size?: ButtonSize;
+
+    /** The shape of the button. */
     shape?: ShapeTypes;
+
+    /** The variant of the button.
+     * @default "default"
+     */
     severity?: VariantProps<typeof ButtonVariants>["severity"];
 }>;
 

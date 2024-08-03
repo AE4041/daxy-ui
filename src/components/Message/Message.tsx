@@ -7,13 +7,32 @@ import { ShapeTypes } from "@/util/global-types";
 
 
 type MessageProps = PropsWithChildren<{
+    /** Message description */
     text?: string;
+
+    /** Message className */
     className?: string;
+
+    /** Whether the message should be able to unmount.
+     * @default false
+     */
     closable?: boolean;
+
+    /** The native button click event to unmount message card. */
     onClose?: () => void;
+
+    /** Message type icon */
     icon?: React.ReactNode;
+
+    /** Message to be shown. */
     content?: React.ReactNode;
+
+    /** The shape of the message component. */
     shape?: Exclude<ShapeTypes, "full">
+
+    /** The variant of the button.
+    * @default "default"
+    */
     severity?:
     | "default"
     | "contrast"
