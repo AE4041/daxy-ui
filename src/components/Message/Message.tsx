@@ -28,13 +28,13 @@ type MessageProps = PropsWithChildren<{
     content?: React.ReactNode;
 
     /** The shape of the message component. */
-    shape?: Exclude<Shapes, "full" | "hexa" | "blob" | "deca">
+    shape?: Exclude<Shapes, "full">
 
     /** The variant of the button.
-    * @default "default"
+    * @default "none"
     */
     severity?:
-    | "default"
+    | "none"
     | "contrast"
     | "muted"
     | "primary"
@@ -53,13 +53,13 @@ const MessageVariants = cva(
     {
         variants: {
             shape: {
-                default: "border-0",
+                none: "border-0",
                 smooth: "rounded-md",
                 rounded: "rounded-lg",
                 curved: "rounded-xl",
             },
             severity: {
-                default: "border-gray-300 bg-white text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100",
+                none: "border-gray-300 bg-white text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100",
                 contrast: "border-gray-300 bg-white text-gray-800 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100",
                 muted: "bg-gray-200 text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100",
                 primary: "border-indigo-500 bg-indigo-500/10 text-indigo-500",
@@ -70,8 +70,8 @@ const MessageVariants = cva(
             }
         },
         defaultVariants: {
-            shape: "default",
-            severity: "default"
+            shape: "none",
+            severity: "none"
         }
     }
 )
@@ -83,7 +83,7 @@ const MessageVariants = cva(
  */
 const getVariantIcon = (variant: VariantProps<typeof MessageVariants>["severity"]) => {
     const iconMap = {
-        default: <Siren size={20} />,
+        none: <Siren size={20} />,
         contrast: <Info size={20} />,
         muted: <Info size={20} />,
         info: <BadgeInfo size={20} />,
@@ -93,7 +93,7 @@ const getVariantIcon = (variant: VariantProps<typeof MessageVariants>["severity"
         danger: <OctagonAlert size={20} />,
     };
 
-    const iconClass = iconMap[variant || "default"] || <Siren />;
+    const iconClass = iconMap[variant || "none"] || <Siren />;
     return iconClass;
 };
 
@@ -106,8 +106,8 @@ const Message = forwardRef<HTMLDivElement, MessageProps>((props, ref) => {
         content,
         className,
         closable = false,
-        shape = "default",
-        severity = "default",
+        shape = "none",
+        severity = "none",
     } = props;
 
 
@@ -115,7 +115,7 @@ const Message = forwardRef<HTMLDivElement, MessageProps>((props, ref) => {
     const closeButtonClasses = classNames(
         "ms-auto flex h-8 w-8 items-center justify-center rounded-full border-none bg-none transition-colors duration-300",
         {
-            "text-gray-500 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700": severity === "default",
+            "text-gray-500 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700": severity === "none",
             "text-gray-500 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-800": severity === "contrast",
             "text-indigo-500 hover:bg-indigo-100": severity === "primary",
             "text-cyan-500 hover:bg-cyan-100": severity === "info",

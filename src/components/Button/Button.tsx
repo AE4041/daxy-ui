@@ -41,7 +41,7 @@ type ButtonProps = PropsWithChildren<{
     size?: ButtonSize;
 
     /** The shape of the button. */
-    shape?: Exclude<Shapes, "hexa" | "blob" | "deca">;
+    shape?: Shapes;
 
     /** The variant of the button.
      * @default "default"
@@ -55,20 +55,20 @@ const ButtonVariants = cva(
     {
         variants: {
             shape: {
-                default: "",
+                none: "",
                 rounded: "rounded-md",
                 smooth: "rounded-lg",
                 curved: "rounded-xl",
                 full: "rounded-full"
             },
             size: {
-                default: "h-10 px-4 py-2",
-                sm: "h-9 px-3",
+                xs: "h-9 px-3 py-2",
+                sm: "h-10 px-4 py-2",
                 lg: "h-11 px-8",
                 icon: "h-10 w-10",
             },
             severity: {
-                default: "[&>span>.loader]:text-gray-500 dark:[&>span>.loader]:text-gray-200 bg-white hover:enabled:bg-gray-50 active:enabled:bg-gray-100 hover:enabled:border-gray-300 dark:hover:enabled:border-gray-600 text-gray-800 dark:text-gray-100 dark:bg-gray-800 dark:hover:enabled:bg-gray-700",
+                none: "[&>span>.loader]:text-gray-500 dark:[&>span>.loader]:text-gray-200 bg-white hover:enabled:bg-gray-50 active:enabled:bg-gray-100 hover:enabled:border-gray-300 dark:hover:enabled:border-gray-600 text-gray-800 dark:text-gray-100 dark:bg-gray-800 dark:hover:enabled:bg-gray-700",
                 primary: "[&>span>.loader]:text-gray-100 border border-indigo-500 bg-indigo-500 text-white enabled:hover:bg-indigo-600 active:enabled:bg-indigo-400",
                 info: "[&>span>.loader]:text-gray-100 border border-cyan-500 bg-cyan-500 text-white enabled:hover:bg-cyan-600 active:enabled:bg-cyan-400",
                 success: "[&>span>.loader]:text-gray-100 border border-teal-500 bg-teal-500 text-white enabled:hover:bg-teal-600 active:enabled:bg-teal-400",
@@ -90,9 +90,9 @@ const ButtonVariants = cva(
             },
         },
         defaultVariants: {
-            shape: "default",
-            size: "default",
-            severity: "default",
+            shape: "none",
+            size: "sm",
+            severity: "none",
         },
     }
 )
@@ -122,9 +122,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             loading = false,
             iconOnly = false,
             disabled = false,
-            shape = "default",
-            size = iconOnly ? "icon" : "default",
-            severity = "default",
+            shape = "none",
+            size = iconOnly ? "icon" : "sm",
+            severity = "none",
             iconPosition = "left",
             ...rest
         } = props;
